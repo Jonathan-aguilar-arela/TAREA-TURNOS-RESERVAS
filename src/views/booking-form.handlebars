@@ -1,0 +1,34 @@
+<p class="kicker"><a href="/services">← Servicios</a></p>
+<h1>Reservar turno</h1>
+<p class="lede">Completa tus datos para reservar el servicio</p>
+<form id="booking-form" class="form booking-form">
+    <input type="hidden" name="serviceId" value="{{service.id}}">
+    <div class="booking-service">
+        <p class="meta">Servicio seleccionado</p>
+        <h2>{{service.name}}</h2>
+        <p>{{service.description}}</p>
+        <p class="price">USD {{service.price}}</p>
+        <p class="meta">Duración: {{service.duration}} minutos</p>
+    </div>
+
+    <label>
+        Nombre completo <input type="text" name="clientName" autocomplete="name" required placeholder="Ej.: Camila Arena">
+    </label>
+    <label>
+        Email
+        <input type="email" name="clientEmail" autocomplete="email" required placeholder="Ej.: camila@correo.com">
+    </label>
+    <label>
+        Fecha
+        <input type="date" name="date" required>
+    </label>
+    <label>
+        Hora
+        <input type="time" name="time" required>
+    </label>
+
+    <button type="submit">Confirmar reserva</button>
+</form>
+<p id="booking-message" class="error feedback" role="status" hidden></p>
+
+<script src="/js/booking.js"></script>

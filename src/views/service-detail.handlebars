@@ -1,0 +1,20 @@
+<p class="kicker"><a href="/services">← Volver a servicios</a></p>
+<article class="card service-detail">
+  <p class="meta service-category">{{service.category}} · {{service.duration}} min</p>
+  <h1>{{service.name}}</h1>
+  <p class="description">{{service.description}}</p>
+  <div class="detail-summary">
+    <p class="price">USD {{service.price}}</p>
+    {{#if service.available}}
+      <span class="badge ok">Disponible</span>
+    {{else}}
+      <span class="badge no">No disponible</span>
+    {{/if}}
+  </div>
+  {{#if service.available}}
+    <a class="btn" href="/bookings/new?service={{service.id}}">Reservar este servicio</a>
+  {{else}}
+    <p class="lede">Este servicio no tiene turnos disponibles por el momento.</p>
+    <a class="btn ghost" href="/services">Ver otros servicios</a>
+  {{/if}}
+</article>

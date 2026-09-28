@@ -1,0 +1,21 @@
+<h1>Reservas</h1>
+<p class="info-banner">
+  <span class="info-icon" aria-hidden="true">i</span>
+  Seleccioná una reserva para consultar sus servicios y todos los detalles.
+</p>
+
+{{#if bookings.length}}
+  <ul class="booking-list" aria-label="Reservas registradas">
+    {{#each bookings}}
+      <li>
+        <a class="booking-row" href="/bookings/{{id}}">
+          <span class="booking-person"><span class="avatar avatar-{{status}}" aria-hidden="true">{{initials clientName}}</span><span class="client-name">{{clientName}}</span></span>
+          <time class="booking-time" datetime="{{date}}T{{time}}">{{date}} <span>{{time}}</span></time>
+          <span class="status status-{{status}}">{{statusLabel status}}</span>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <div class="empty-state"><h2>Tu agenda empieza aquí</h2><p>Todavía no hay reservas. Elegí un servicio y reservá tu primer turno.</p><a class="btn" href="/services">Explorar servicios</a></div>
+{{/if}}

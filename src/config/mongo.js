@@ -1,0 +1,19 @@
+import mongoose from "mongoose";
+import dns from "dns";
+import { env } from "./env.config.js";
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
+export const connectMongo = async (url = env.MONGO_URL, dbName = env.MONGO_DB_NAME) => {
+  if (!url) {
+    throw new Error("Falta MONGO_URL. Completá .env a partir de .env.example (Atlas).");
+  }
+
+  mongoose.set("strictQuery", true);
+  await mongoose.connect(url, { dbName });
+  return mongoose.connection;
+};
+
+export const disconnectMongo = async () => {
+  await mongoose.disconnect();
+};

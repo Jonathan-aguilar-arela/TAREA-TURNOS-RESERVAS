@@ -1,0 +1,35 @@
+<section class="hero">
+  <p class="kicker hero-label">Gestión de turnos y reservas</p>
+  <h1>Sistema de turnos</h1>
+  <p class="lede">
+    Consultá los servicios disponibles, revisá las reservas y seguí las novedades
+    desde el tablero en tiempo real.
+  </p>
+</section>
+
+<section class="stats" aria-label="Resumen de la agenda">
+  <article class="stat-card stat-services">
+    <span class="stat-icon violet" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M8 5H6a2 2 0 0 0-2 2v12h16V7a2 2 0 0 0-2-2h-2M9 3h6v5H9zM8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <p><strong>{{servicesCount}}</strong><span>Servicios</span></p>
+  </article>
+  <article class="stat-card">
+    <span class="stat-icon green" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="currentColor"/><path d="m8 12 3 3 5-6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <p><strong>{{availableCount}}</strong><span>Disponibles</span></p>
+  </article>
+  <article class="stat-card">
+    <span class="stat-icon amber" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M12 7v5l3 2" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </span>
+    <p><strong>{{bookingsCount}}</strong><span>Reservas</span></p>
+  </article>
+</section>
+
+<section class="actions home-actions" aria-label="Accesos rápidos">
+  <a class="btn" href="/services">Ver servicios</a>
+  <a class="btn ghost" href="/bookings">Ver reservas</a>
+  <a class="btn subtle" href="/realtime"><span class="live-dot" aria-hidden="true"></span>Tablero en vivo</a>
+</section>

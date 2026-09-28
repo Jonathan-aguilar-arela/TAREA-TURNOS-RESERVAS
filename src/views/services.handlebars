@@ -1,0 +1,113 @@
+<h1>Servicios</h1>
+<p class="lede">
+  Encontrá el servicio que necesitás y elegí tu próximo turno.
+</p>
+
+<form class="filters" method="get" action="/services">
+  <label>
+    Categoría
+    <select name="category">
+      <option value="" {{#if (eq filters.category "")}}selected{{/if}}>Todas</option>
+      <option value="barberia" {{#if (eq filters.category "barberia")}}selected{{/if}}>barberia</option>
+      <option value="cabello" {{#if (eq filters.category "cabello")}}selected{{/if}}>cabello</option>
+      <option value="spa" {{#if (eq filters.category "spa")}}selected{{/if}}>spa</option>
+    </select>
+  </label>
+  <label>
+    Disponibilidad
+    <select name="available">
+      <option value="" {{#if (eq filters.available "")}}selected{{/if}}>Todas</option>
+      <option value="true" {{#if (eq filters.available "true")}}selected{{/if}}>Disponible</option>
+      <option value="false" {{#if (eq filters.available "false")}}selected{{/if}}>No disponible</option>
+    </select>
+  </label>
+  <label>
+    Ordenar por
+    <select name="sortBy">
+      <option value="price" {{#if (eq filters.sortBy "price")}}selected{{/if}}>Precio</option>
+      <option value="duration" {{#if (eq filters.sortBy "duration")}}selected{{/if}}>Duración</option>
+      <option value="name" {{#if (eq filters.sortBy "name")}}selected{{/if}}>Nombre</option>
+    </select>
+  </label>
+  <label>
+    Dirección
+    <select name="order">
+      <option value="asc" {{#if (eq filters.order "asc")}}selected{{/if}}>Ascendente</option>
+      <option value="desc" {{#if (eq filters.order "desc")}}selected{{/if}}>Descendente</option>
+    </select>
+  </label>
+  <label>
+    Por página
+    <select name="limit">
+      <option value="5" {{#if (eq filters.limit 5)}}selected{{/if}}>5</option>
+      <option value="10" {{#if (eq filters.limit 10)}}selected{{/if}}>10</option>
+    </select>
+  </label>
+  <button type="submit">Aplicar</button>
+</form>
+
+{{#if queryError}}
+  <p class="error feedback" role="alert">{{queryError}}</p>
+{{/if}}
+
+{{#if services.length}}
+  <p class="meta">{{totalDocs}} resultado{{#unless (eq totalDocs 1)}}s{{/unless}} · página {{page}} de {{totalPages}}</p>
+  <div class="grid">
+    {{#each services}}
+      <article class="card service-card">
+        <p class="meta service-category">{{category}} · {{duration}} min</p>
+        <h2><a href="/services/{{id}}">{{name}}</a></h2>
+        <p class="service-description">{{description}}</p>
+        <p class="price">USD {{price}}</p>
+     {{#if available}}
+
+  <!-- Indicamos que el servicio está disponible -->
+  <span class="badge ok">Disponible</span>
+
+  <!--
+    Botón para que el usuario pueda reservar este servicio.
+
+    Enviamos el ID del servicio mediante la URL:
+    /bookings/new?service=ID_DEL_SERVICIO
+
+    De esta manera, cuando se abra el formulario
+    ya sabemos qué servicio quiere reservar.
+  -->
+  <div class="actions">
+    <a
+      class="btn"
+      href="/bookings/new?service={{id}}"
+    >
+      Reservar
+    </a>
+  </div>
+
+{{else}}
+
+  <!-- Si el servicio no está disponible,
+       no mostramos el botón de reservar -->
+  <span class="badge no">No disponible</span>
+
+{{/if}}
+
+      </article>
+    {{/each}}
+  </div>
+  {{#if totalPages}}
+    <nav class="pager" aria-label="Paginación de servicios">
+      {{#if hasPrevPage}}
+        <a class="btn ghost" href="{{prevLink}}">Anterior</a>
+      {{/if}}
+      {{#if hasNextPage}}
+        <a class="btn ghost" href="{{nextLink}}">Siguiente</a>
+      {{/if}}
+    </nav>
+  {{/if}}
+{{else}}
+  {{#if queryError}}
+  {{else if filtersActive}}
+    <div class="empty-state"><p>No hay servicios con ese filtro.</p><a class="btn ghost" href="/services">Quitar filtros</a></div>
+  {{else}}
+    <div class="empty-state"><h2>Todavía no hay servicios</h2><p>Agregá el primero desde el tablero en vivo.</p><a class="btn" href="/realtime">Ir al tablero</a></div>
+  {{/if}}
+{{/if}}

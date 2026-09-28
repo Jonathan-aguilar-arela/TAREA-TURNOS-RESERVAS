@@ -1,0 +1,55 @@
+<section class="hero">
+  <div class="realtime-heading"><p class="kicker">Tu catálogo, al instante</p><span id="connection-status" class="connection-status" role="status" data-state="connecting">Conectando…</span></div>
+  <h1>Tablero en vivo</h1>
+  <p class="lede">
+    Agregá servicios y seguí los cambios al instante, sin recargar la página.
+  </p>
+</section>
+
+<form id="service-form" class="form realtime-form">
+  <label>
+    Nombre
+    <input name="name" required placeholder="Corte + barba" />
+  </label>
+  <label>
+    Descripción
+    <input name="description" required placeholder="Servicio de 45 minutos" />
+  </label>
+  <label>
+    Duración (min)
+    <input name="duration" type="number" min="1" step="1" required value="30" />
+  </label>
+  <label>
+    Precio (USD)
+    <input name="price" type="number" min="0" step="0.01" required value="18" />
+  </label>
+  <label>
+    Categoría
+    <input name="category" required value="estetica" />
+  </label>
+  <button type="submit" disabled>Agregar servicio</button>
+</form>
+
+<p id="form-error" class="error feedback" role="alert" hidden></p>
+<p id="form-success" class="success feedback" role="status" hidden></p>
+
+<ul id="services-list" class="grid realtime-grid" aria-label="Servicios en tiempo real">
+  {{#each services}}
+    <li class="card service-card" data-id="{{id}}">
+      <p class="meta service-category">{{category}} · {{duration}} min</p>
+      <h2>{{name}}</h2>
+      <p class="service-description">{{description}}</p>
+      <p class="price">USD {{price}}</p>
+      {{#if available}}
+        <span class="badge ok">Disponible</span>
+      {{else}}
+        <span class="badge no">No disponible</span>
+      {{/if}}
+    </li>
+  {{else}}
+    <li class="empty-state">Todavía no hay servicios. Agregá el primero desde el formulario.</li>
+  {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtime.js"></script>
